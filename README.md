@@ -151,6 +151,46 @@ organization = response.json()
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
 
+#### List of the available services for a point
+
+```python
+import requests
+
+#TODO
+```
+
+You can consult the full running example [here](examples/reservation_issue_flow.py)
+
+#### Issue a reservation for a given service in a given point
+
+```python
+import requests
+
+#TODO
+```
+
+You can consult the full running example [here](examples/reservation_issue_flow.py)
+
+#### List all reservations issued from a given user
+
+```python
+import requests
+
+#TODO
+```
+
+You can consult the full running example [here](examples/reservation_issue_flow.py)
+
+#### Delete a reservation on behalf of a user
+
+```python
+import requests
+
+#TODO
+```
+
+You can consult the full running example [here](examples/reservation_issue_flow.py)
+
 ## Webhooks
 
 In order to avoid HTTP polling for retrieving the status of a given office and show it on a monitor (e.g. a public display which lists the reservations which are called from a given counter in an office), convenient Webhook APIs are available.
