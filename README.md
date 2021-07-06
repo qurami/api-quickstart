@@ -1,4 +1,4 @@
-# ufirst API Quickstart
+# ufirst API QuickStart
 
 The aim of this document is to provide developers with all the pieces of information they need to integrate ufirst to their platform.
 
@@ -104,10 +104,7 @@ Once you have obtained a JWT token for a given userID, you just need to execute 
 
 ## Reservation Flow
 
-INTRO BELLA SCRITTA DA BRUNO + SCHEMA
-
 ![Reservation Flow Scheme](./assets/reservation-flow.svg)
-
 
 ### List of the available points for an organization
 
@@ -403,7 +400,6 @@ response = requests.delete(
 print(response.status_code)
 ```
 
-
 ### List all reservations issued from a given user
 
 ```python
@@ -458,7 +454,6 @@ should print the list of the previously issued reservation for the given user_id
 reservation_list = response.json()
 print(reservation_list)
 ```
-
 
 ## Webhooks
 
