@@ -146,7 +146,7 @@ response = requests.get(
     headers=headers,
 )
 
-organization_with_points_list = response.json()
+organization_with_points = response.json()
 ```
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
@@ -162,15 +162,15 @@ organization_id = '12345'
 
 # point_id is the identifier of the Point for which we want to obtain
 # the list of available services.
-point_id = 'QQSP000000100'
+point_id = 'QQSP123456789'
 
 api_base_url = 'https://api.ufirst.business/v1'
 
 # this is the JWT token retrieved from a server to server call
 # please refer to generate_jwt_token.py
-jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.eyJvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRQTLunnGteaY'
+jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.fyGvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3ZzdH9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRSTLunnGteaY'
 
-organization_url = "%s/organizations/%s/points/%s" % (
+point_with_services_url = "%s/organizations/%s/points/%s" % (
     api_base_url,
     organization_id,
     point_id
@@ -181,11 +181,11 @@ headers = {
 }
 
 response = requests.get(
-    url=organization_url,
+    url=point_with_services_url,
     headers=headers,
 )
 
-point_with_services_list = response.json()
+point_with_services = response.json()
 ```
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
@@ -201,18 +201,18 @@ organization_id = '12345'
 
 # point_id is the identifier of the Point for which we want to obtain
 # the list of available services.
-point_id = 'QQSP000000100'
+point_id = 'QQSP123456789'
 
-# service_id is the identifier of the service we want to issue a 
+# service_id is the identifier of the service we want to issue a
 # reservation for.
-service_id = 'QQSP000000100-demo-service'
+service_id = 'QQSP123456789-demo-service'
 
 # parameters is the request payload with the reservation parameters.
 parameters = {
     "reservationParametersValues": [
         {
             "reservationParameterID": "name",
-            "reservationParameterValue": "ilMioNome"
+            "reservationParameterValue": "myFullName"
         },
         {
             "reservationParameterID": "phone-number",
@@ -221,14 +221,13 @@ parameters = {
     ],
 }
 
-
 api_base_url = 'https://api.ufirst.business/v1'
 
 # this is the JWT token retrieved from a server to server call
 # please refer to generate_jwt_token.py
-jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.eyJvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRQTLunnGteaY'
+jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.fyGvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3ZzdH9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRSTLunnGteaY'
 
-organization_url = "%s/organizations/%s/points/%s/services/%s/reservations" % (
+issue_reservation_url = "%s/organizations/%s/points/%s/services/%s/reservations" % (
     api_base_url,
     organization_id,
     point_id,
@@ -240,7 +239,7 @@ headers = {
 }
 
 response = requests.post(
-    url=organization_url,
+    url=issue_reservation_url,
     json=parameters,
     headers=headers,
 )
@@ -254,6 +253,7 @@ You can consult the full running example [here](examples/reservation_issue_flow.
 
 ```python
 import requests
+
 # organization_id is the unique identifier of your organization in ufirst
 # systems; it is provided by ufirst when your partner account is enabled.
 organization_id = '12345'
@@ -265,9 +265,9 @@ api_base_url = 'https://api.ufirst.business/v1'
 
 # this is the JWT token retrieved from a server to server call
 # please refer to generate_jwt_token.py
-jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.eyJvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRQTLunnGteaY'
+jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.fyGvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3ZzdH9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRSTLunnGteaY'
 
-organization_url = "%s/organizations/%s/users/%s/reservations" % (
+reservations_url = "%s/organizations/%s/users/%s/reservations" % (
     api_base_url,
     organization_id,
     user_id
@@ -278,7 +278,7 @@ headers = {
 }
 
 response = requests.get(
-    url=organization_url,
+    url=reservations_url,
     headers=headers,
 )
 
@@ -291,7 +291,7 @@ You can consult the full running example [here](examples/reservation_issue_flow.
 
 ```python
 import requests
-   
+
 # organization_id is the unique identifier of your organization in ufirst
 # systems; it is provided by ufirst when your partner account is enabled.
 organization_id = '12345'
@@ -306,9 +306,9 @@ api_base_url = 'https://api.ufirst.business/v1'
 
 # this is the JWT token retrieved from a server to server call
 # please refer to generate_jwt_token.py
-jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.eyJvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRQTLunnGteaY'
+jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.fyGvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3ZzdH9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRSTLunnGteaY'
 
-organization_url = "%s/organizations/%s/users/%s/reservations/%s" % (
+delete_reservation_url = "%s/organizations/%s/users/%s/reservations/%s" % (
     api_base_url,
     organization_id,
     user_id,
@@ -320,7 +320,7 @@ headers = {
 }
 
 response = requests.delete(
-    url=organization_url,
+    url=delete_reservation_url,
     headers=headers,
 )
 
