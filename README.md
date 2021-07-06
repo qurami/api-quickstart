@@ -309,12 +309,15 @@ service_id = 'QQSP123456789-demo-service'
 parameters = {
     "reservationParametersValues": [
         {
-            "reservationParameterID": "name",
-            "reservationParameterValue": "myFullName"
+            "reservationParameterID": "contact-phone-number",
+            "reservationParameterValue": "000000000"
         },
         {
-            "reservationParameterID": "phone-number",
-            "reservationParameterValue": "000000000"
+            "reservationParameterID": "timeslot",
+            "selectedAvailability": {
+              "resourceID": "123456789-T_resource",
+              "timeslotStartTimeRFC3339": "2021-06-05T11:00:00+01:00"
+            }
         }
     ],
 }
