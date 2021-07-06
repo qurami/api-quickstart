@@ -98,14 +98,13 @@ jwt_token_for_user = response.json()
 print(jwt_token_for_user)
 ```
 
-You can consult the full running example [here](examples/generate_jwt_token.py)
-
 ### Using JWT token for Client APIs
 
 Once you have obtained a JWT token for a given userID, you just need to execute HTTP request against ufirst APIs by adding the `authorization` header, valued as `Bearer {JWTToken}`.
 
 ## Reservation Flow
 
+INTRO BELLA SCRITTA DA BRUNO + SCHEMA
 
 ### List of the available points for an organization
 
@@ -169,8 +168,6 @@ should print the struct of the organization with its active points, e.g.
 organization_with_points = response.json()
 print(organization_with_points)
 ```
-
-You can consult the full running example [here](examples/reservation_issue_flow.py)
 
 ### List of the available services for a point
 
@@ -286,8 +283,6 @@ point_with_services = response.json()
 print(point_with_services)
 ```
 
-You can consult the full running example [here](examples/reservation_issue_flow.py)
-
 ### Issue a reservation for a given service in a given point
 
 ```python
@@ -365,8 +360,6 @@ reservation = response.json()
 print(reservation)
 ```
 
-You can consult the full running example [here](examples/reservation_issue_flow.py)
-
 ### Delete a reservation on behalf of a user
 
 ```python
@@ -407,7 +400,6 @@ response = requests.delete(
 print(response.status_code)
 ```
 
-You can consult the full running example [here](examples/reservation_issue_flow.py)
 
 ### List all reservations issued from a given user
 
@@ -464,7 +456,6 @@ reservation_list = response.json()
 print(reservation_list)
 ```
 
-You can consult the full running example [here](examples/reservation_issue_flow.py)
 
 ## Webhooks
 
