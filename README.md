@@ -1,6 +1,6 @@
 # ufirst API Quickstart
 
-Aim of this document is to provide developers with all the pieces of information they need to integrate ufirst to their platform.
+The aim of this document is to provide developers with all the pieces of information they need to integrate ufirst to their platform.
 
 ## Table of Contents
 
