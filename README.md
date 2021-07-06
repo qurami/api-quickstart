@@ -29,7 +29,7 @@ On the other hand, the APIs designed around the reservation lifecycle are author
 
 The authentication flow can be represented as follows:
 
-1. (client app) The user logins on your system with her own credentials
+1. (client app) The user logins on your backend with her own credentials
 2. (client app) Calls your backend to retrieve a JWT token to access ufirst APIs
 3. (your backend) Executes a request to ufirst APIs with your organization's credentials to issue a JWT token on behalf on the specific user
 4. (ufirst API) Returns a JWT token to your backend
@@ -193,12 +193,12 @@ You can consult the full running example [here](examples/reservation_issue_flow.
 
 ## Webhooks
 
-In order to avoid HTTP polling for retrieving the status of a given office and show it on a monitor (e.g. a public display which lists the reservations which are called from a given counter in an office), convenient Webhook APIs are available.
+In order to obtain real time updates regarding the status of a given office and show it on a monitor (e.g. a public display which lists the reservations which are called from a given counter in an office), convenient Webhook APIs are available.
 
 You can register a certain webhook on a given pointID so that all status updates for such point will be sent over HTTP as soon as they happen, in near realtime.
 
 This means you need to have a machine / application which would be publicly reachable over HTTP on the Internet either via a [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) or an [IP Address](https://en.wikipedia.org/wiki/IP_address).
 
-**NOTE**: Please note that Webhooks APIs are meant to be used in a _server to server_ environment, and they are authenticated with the `x-privatekeyid` and `x-clientemail` HTTP request headers.
+**NOTE**: Please note that Webhooks APIs are meant to be used in a _server to server_ environment as they are authenticated with the `x-privatekeyid` and `x-clientemail` HTTP request headers.
 
 **NOTE**: Only a single Webhook per pointID is allowed.
