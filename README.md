@@ -6,7 +6,7 @@ The aim of this document is to provide developers with all the pieces of informa
 
 - [Overview](#overview)
 - [Authentication](#authentication)
-- [Usage examples](#usage-examples)
+- [Reservation Flow](#reservation-flow)
 - [Webhooks](#webhooks)
 
 ## Overview
@@ -54,21 +54,7 @@ The return payload is a string representing the JWT token.
 
 **NOTE**: Please bear in mind that the returned JWT token will identify the specific userID you have provided; such JWT token SHALL NOT be used across multiple/different users!
 
-### Using JWT token for Client APIs
-
-Once you have obtained a JWT token for a given userID, you just need to execute HTTP request against ufirst APIs by adding the `authorization` header, valued as `Bearer {JWTToken}`, e.g.:
-
-```
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhmNDMyMDRhMTc5MTVlOGJlN2NjZDdjYjI2NGRmNmVhMzgzYzQ5YWIiLCJ0eXAiOiJKV1QifQ.eyJvcmdhbml6YXRpb25JRCI6IjEiLCJvcmlnaW5hbFVzZXJJRCI6ImFwaXYxLTEtdGVzdC11c2VyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3FmaXJzdC10ZXN0IiwiYXVkIjoicWZpcnN0LXRlc3QiLCJhdXRoX3RpbWUiOjE2MjU0OTgwMDUsInVzZXJfaWQiOiJhcGl2MS0xLXRlc3QtdXNlciIsInN1YiI6ImFwaXYxLTEtdGVzdC11c2VyIiwiaWF0IjoxNjI1NDk4MDA1LCJleHAiOjE2MjU1MDE2MDUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn19.LdGktkewJpxcaA7CbxuSw3S6DQ-61R7rX5CsajwPL3tmPTV2mz6h7kLCNPNWCqjUJRft6deQxu_sFsU5h7GiwShZesE_6XmdKaXBykocwk-erwawkXDANAF36yLM81UHcWdA2A6GKiQOyqQ_9SlSf5eBlqlHoIfmuCt9jyKn3QtASobDfPVod7kmWoBcr-qJh1C61p-AMgtAKSn4xDUaAp8y-4jMXxHrVY73ji3uqHe0CZv5LzpeBhR80BINthaWiuO7qrBUhzmZE28AIt3167dtbtGv7IX4BCKdB6waQFlTSCsIcgVQkV_8yWChx7YHY43LQwNMqGJuh15aAgNKZQ
-```
-
-## Usage Examples
-
-This chapter provides you with a brief examples to understand how to use ufirst Business APIs.
-
-All the following examples are written in python 3, but you can choose to use the language you prefer.
-
-### Generating a JWT token for a given user
+#### Usage Example
 
 ```python
 import requests
@@ -114,9 +100,14 @@ print(jwt_token_for_user)
 
 You can consult the full running example [here](examples/generate_jwt_token.py)
 
-### Reservation Issue Flow
+### Using JWT token for Client APIs
 
-#### List of the available points for an organization
+Once you have obtained a JWT token for a given userID, you just need to execute HTTP request against ufirst APIs by adding the `authorization` header, valued as `Bearer {JWTToken}`.
+
+## Reservation Flow
+
+
+### List of the available points for an organization
 
 ```python
 import requests
@@ -151,7 +142,7 @@ organization_with_points = response.json()
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
 
-#### List of the available services for a point
+### List of the available services for a point
 
 ```python
 import requests
@@ -190,7 +181,7 @@ point_with_services = response.json()
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
 
-#### Issue a reservation for a given service in a given point
+### Issue a reservation for a given service in a given point
 
 ```python
 import requests
@@ -249,45 +240,7 @@ reservation = response.json()
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
 
-#### List all reservations issued from a given user
-
-```python
-import requests
-
-# organization_id is the unique identifier of your organization in ufirst
-# systems; it is provided by ufirst when your partner account is enabled.
-organization_id = '12345'
-
-# this represents the user identifier.
-user_id = 'jon.appleseed@yourcompany.org'
-
-api_base_url = 'https://api.ufirst.business/v1'
-
-# this is the JWT token retrieved from a server to server call
-# please refer to generate_jwt_token.py
-jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.fyGvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3ZzdH9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRSTLunnGteaY'
-
-reservations_url = "%s/organizations/%s/users/%s/reservations" % (
-    api_base_url,
-    organization_id,
-    user_id
-)
-
-headers = {
-    'authorization': "Bearer %s" % jwt_token_for_user,
-}
-
-response = requests.get(
-    url=reservations_url,
-    headers=headers,
-)
-
-reservation_list = response.json()
-```
-
-You can consult the full running example [here](examples/reservation_issue_flow.py)
-
-#### Delete a reservation on behalf of a user
+### Delete a reservation on behalf of a user
 
 ```python
 import requests
@@ -325,6 +278,45 @@ response = requests.delete(
 )
 
 print(response.status_code)
+```
+
+You can consult the full running example [here](examples/reservation_issue_flow.py)
+
+### List all reservations issued from a given user
+
+```python
+import requests
+
+# organization_id is the unique identifier of your organization in ufirst
+# systems; it is provided by ufirst when your partner account is enabled.
+organization_id = '12345'
+
+# this represents the user identifier.
+user_id = 'jon.appleseed@yourcompany.org'
+
+api_base_url = 'https://api.ufirst.business/v1'
+
+# this is the JWT token retrieved from a server to server call
+# please refer to generate_jwt_token.py
+jwt_token_for_user = 'eyJhbGciOiJSUzI1NiIsImtpXCI6IjhiMjFkNWE1Y2U2OGM1MjNlZTc0MzI5YjQ3ZDg0NGE3YmZjODRjZmYiLCJ0eXAiOiJKV1QifQ.fyGvcmdhbml6YXRpb25JRCI6IjI1Iiwib3JpZ2luYWxVc2VySUQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9hcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdWQiOiJhcGktcHJvamVjdC03MDI2OTI3MDI1MTkiLCJhdXRoX3RpbWUiOjE2MjU1MDE3ODYsInVzZXJfaWQiOiJhcGl2MS0yNS1qb24uYXBwbGVzZWVkQHlvdXJjb21wYW55Lm9yZyIsInN1YiI6ImFwaXYxLTI1LWpvbi5hcHBsZXNlZWRAeW91cmNvbXBhbnkub3JnIiwiaWF0IjoxNjI1NTAxNzg2LCJleHAiOjE2MjU1MDUzODYsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnt9LCJzaWduX2luX3Byb3ZpZGVyIjoiY3ZzdH9tIn19.d2K7n105d1ZmbaM7677gcBkZWiNIAtyuheNAliNl2oK9SJVDTQzaGDjgkbQVH1bOCypiVFmAxOIMVbJchrLs6QqwcAsEC9zXulNJQDPGzbfYpVc53_tH8SyXCu_XJXHwuter9bZA0lYnLQoMpFRd4Y4E2wZQoLK_lvTUElUfEDSgzgp-wiAVEKbTCGrbOmUqBkwT3xzHcmIvJDOE07V_AVMwLd3au7n5esvDNOt1mX797CVPpgh9bCRJnaXj1vIGGYe6agTjsvAyy9onEUrQDS5H-h2bx5finQAb_yOj_-gVnA9TnFRLVfy9OabR0b-CO3agM6ks9zRSTLunnGteaY'
+
+reservations_url = "%s/organizations/%s/users/%s/reservations" % (
+    api_base_url,
+    organization_id,
+    user_id
+)
+
+headers = {
+    'authorization': "Bearer %s" % jwt_token_for_user,
+}
+
+response = requests.delete(
+    url=delete_reservation_url,
+    headers=headers,
+)
+
+reservation_list = response.json()
+print(reservation_list)
 ```
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
