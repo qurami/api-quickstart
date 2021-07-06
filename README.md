@@ -310,8 +310,8 @@ headers = {
     'authorization': "Bearer %s" % jwt_token_for_user,
 }
 
-response = requests.delete(
-    url=delete_reservation_url,
+response = requests.get(
+    url=reservations_url,
     headers=headers,
 )
 
