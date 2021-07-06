@@ -137,7 +137,37 @@ response = requests.get(
     headers=headers,
 )
 
+'''
+should print the struct of the organization with its active points, e.g.
+
+{
+    "id": "1",
+    "name": "ufirst",
+    "fullName": "ufirst",
+    "headerImageURL": "https://example.com/header.png",
+    "logoURL": "https://example.com/logo.png",
+    "points": [
+        {
+            "id": "QQSP123456789",
+            "name": "Demo point",
+            "categorySlug": "health",
+            "citySlug": "rome",
+            "timezone": "Europe/Rome",
+            "isUfirstBusiness": true,
+            "businessDays": [
+                {
+                    "weekday": 1,
+                    "startTimeISO8601": "1000",
+                    "endTimeISO8601": "1230"
+                }
+            ]
+        }
+    ]
+}
+
+'''
 organization_with_points = response.json()
+print(organization_with_points)
 ```
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
@@ -176,7 +206,84 @@ response = requests.get(
     headers=headers,
 )
 
+'''
+should print the struct of the point with its available services and other relevant information, e.g.
+
+{
+    "id": "QQSP123456789",
+    "name": "Demo point",
+    "categorySlug": "health",
+    "geoPoint": {
+        "latitude": 41.902,
+        "longitude": 12.501,
+        "name": "Via Giovanni Amendola 46, 00185 Roma Italia"
+    },
+    "countrySlug": "italy",
+    "citySlug": "rome",
+    "timezone": "Europe/Rome",
+    "isUfirstBusiness": true,
+    "businessDays": [
+        {
+            "weekday": 1,
+            "startTimeISO8601": "1000",
+            "endTimeISO8601": "1230"
+        }
+    ],
+    "organization": {
+        "id": "1",
+        "name": "ufirst",
+        "fullName": "ufirst",
+        "headerImageURL": "https://example.com/header.png",
+        "logoURL": "https://example.com/logo.png"
+    },
+    "services": [
+        {
+            "id": "QQSP123456789-demo-service",
+            "name": "Demo service",
+            "reservationParameters": [
+                {
+                    "id": "contact-phone-number",
+                    "label": "Your phone number",
+                    "placeholder": "1234567890",
+                    "regex": "^[0-9]{9,40}$|^none$",
+                    "resourcesAvailability": []
+                },
+                {
+                    "id": "timeslot",
+                    "label": "Select the day and hour for the service",
+                    "placeholder": "",
+                    "regex": "",
+                    "resourcesAvailability": [
+                        {
+                            "resourceID": "123456789-T_resource",
+                            "resourceName": "Entrance",
+                            "timeslots": [
+                                {
+                                    "startTimeISO8601": "1000",
+                                    "maxPartySize": 100
+                                },
+                                {
+                                    "startTimeISO8601": "1100",
+                                    "maxPartySize": 100
+                                },
+                                {
+                                    "startTimeISO8601": "1200",
+                                    "maxPartySize": 100
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "isActive": true,
+            "isScheduled": true
+        }
+    ]
+}
+
+'''
 point_with_services = response.json()
+print(point_with_services)
 ```
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
@@ -235,7 +342,24 @@ response = requests.post(
     headers=headers,
 )
 
+'''
+should print the struct of the newly created reservation, e.g.
+
+{
+    "id": "5df2451835ac1e465abd948c",
+    "label": "C22",
+    "createdAtRFC3339": "2021-05-19T09:52:59.102-06:00",
+    "pointID": "QQSP123456789",
+    "serviceID": "QQSP123456789-demo-service",
+    "serviceName": "Demo service",
+    "state": "waiting",
+    "userID": "jon.appleseed@yourcompany.org",
+    "scheduledServingTimeRFC3339": "2021-06-05T11:00:00+01:00"
+}
+
+'''
 reservation = response.json()
+print(reservation)
 ```
 
 You can consult the full running example [here](examples/reservation_issue_flow.py)
@@ -315,6 +439,24 @@ response = requests.get(
     headers=headers,
 )
 
+'''
+should print the list of the previously issued reservation for the given user_id, e.g.
+
+[
+    {
+        "id": "5df2451835ac1e465abd948c",
+        "label": "C22",
+        "createdAtRFC3339": "2021-05-19T09:52:59.102-06:00",
+        "pointID": "QQSP123456789",
+        "serviceID": "QQSP123456789-demo-service",
+        "serviceName": "Demo service",
+        "state": "waiting",
+        "userID": "jon.appleseed@yourcompany.org",
+        "scheduledServingTimeRFC3339": "2021-06-05T11:00:00+01:00"
+    }
+]
+
+'''
 reservation_list = response.json()
 print(reservation_list)
 ```
