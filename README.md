@@ -106,6 +106,9 @@ Once you have obtained a JWT token for a given userID, you just need to execute 
 
 INTRO BELLA SCRITTA DA BRUNO + SCHEMA
 
+![Reservation Flow Scheme](./assets/reservation-flow.svg)
+
+
 ### List of the available points for an organization
 
 ```python
