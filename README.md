@@ -38,6 +38,8 @@ The authentication flow can be represented as follows:
 
 **NOTE**: Please bear in mind that all JWT tokens expire 60 minutes after the time of their creation.
 
+![Auth Sequence](./assets/auth_sequence.svg)
+
 ### Generating a JWT token on behalf of a user
 
 Execute a `POST` request to `https://api.ufirst.business/v1/organizations/{organizationID}/users/{userID}/login`, where:
