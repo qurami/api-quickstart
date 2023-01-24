@@ -315,6 +315,7 @@ parameters = {
             }
         }
     ],
+    "notificationChannel": "mailto:mail@example.com"
 }
 
 api_base_url = 'https://api.ufirst.business/v1'
